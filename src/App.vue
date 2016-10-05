@@ -35,7 +35,7 @@
         },
         data() {
             return {
-                root: 'https://jsonplaceholder.typicode.com',
+                root: 'https://jsonplaceholder.typicode.com/todos/',
                 title: '',
                 taskList: [],
                 taskListCompleted: [],
@@ -48,7 +48,7 @@
         },
         methods: {
             fetchData() {
-                this.$http.get(this.root + '/todos').then((response) => {
+                this.$http.get(this.root).then((response) => {
                     this.taskList = response.body
                 });
             },
@@ -60,7 +60,7 @@
                     //if task is not an empty string
                 if (task) {
                     //Push an object containing the task to the taskList array
-                    this.$http.post(this.root + '/todos', task, {
+                    this.$http.post(this.root, task, {
                         emulateJSON: true
                     }).then((response) => {
                         this.taskList.push(task)
@@ -73,7 +73,7 @@
 
             removeTask: function(task) {
                 //$remove here works like array.splice()
-                this.$http.delete(this.root + '/todos/' + task.id).then((response) => {
+                this.$http.delete(this.root + task.id).then((response) => {
                     this.taskList.splice(this.taskList.indexOf(task), 1)
                 }, (response) => {
                     // error callback
