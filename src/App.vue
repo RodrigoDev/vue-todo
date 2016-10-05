@@ -8,7 +8,6 @@
         </section>
 
         <ul class="list">
-
             <li v-for="task in taskList" v-bind:class="{done: task.completed}">
                 <input type="checkbox" class="checkbox" v-model="task.completed">
                 <label for="checkbox">{{ task.title }}</label>
@@ -30,8 +29,8 @@
             areAllSelected: function() {
                 //Check if every checked property returns true and if there is at least one todo item
                 return this.taskList.every(function(task) {
-                    return task.completed;
-                }) && this.taskList.length > 0;
+                    return task.completed
+                }) && this.taskList.length > 0
             }
         },
         data() {
@@ -56,15 +55,15 @@
 
             addTask: function() {
                 //trim() is used to remove whitespace from both ends of a string
-                var task = this.newTask
-                task.title = this.title.trim();
-                //if task is not an empty string
+                var task = _.clone(this.newTask)
+                task.title = this.title.trim()
+                    //if task is not an empty string
                 if (task) {
                     //Push an object containing the task to the taskList array
                     this.$http.post(this.root + '/todos', task, {
                         emulateJSON: true
                     }).then((response) => {
-                        this.taskList.push(task);
+                        this.taskList.push(task)
                     }, (response) => {
                         console.log("error")
                     })
@@ -75,7 +74,7 @@
             removeTask: function(task) {
                 //$remove here works like array.splice()
                 this.$http.delete(this.root + '/todos/' + task.id).then((response) => {
-                    this.taskList.splice(this.taskList.indexOf(task), 1);
+                    this.taskList.splice(this.taskList.indexOf(task), 1)
                 }, (response) => {
                     // error callback
                     console.log("error")
@@ -93,7 +92,7 @@
                 var targetValue = this.areAllSelected ? false : true;
                 //we use a for loop to set the checked state of all items to the target value
                 for (var i = 0; i < this.taskList.length; i++) {
-                    this.taskList[i].completed = targetValue;
+                    this.taskList[i].completed = targetValue
                 }
             }
         },
