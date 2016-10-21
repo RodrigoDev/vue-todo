@@ -50,7 +50,7 @@
             fetchData() {
                 this.$http.get(this.root).then((response) => {
                     this.taskList = response.body
-                });
+                })
             },
 
             addTask: function() {
@@ -72,7 +72,6 @@
             },
 
             removeTask: function(task) {
-                //$remove here works like array.splice()
                 this.$http.delete(this.root + task.id).then((response) => {
                     this.taskList.splice(this.taskList.indexOf(task), 1)
                 }, (response) => {
@@ -84,7 +83,7 @@
 
             clearList: function() {
                 //Setting taskList to an empty array clears the whole list
-                this.taskList = [];
+                this.taskList = []
             },
 
             selectAll: function(task) {
